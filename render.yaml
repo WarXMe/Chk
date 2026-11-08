@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: xbox-checker-bot
+    runtime: docker
+    plan: starter          # $7/mo — upgrade to standard for more CPU
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: BOT_TOKEN
+        sync: false         # set in Render dashboard
+      - key: ADMIN_ID
+        sync: false         # your Telegram user ID
+      - key: WEBHOOK_URL
+        sync: false         # https://xbox-checker-bot.onrender.com
+      - key: PORT
+        value: "8080"
+      - key: DB_PATH
+        value: /data/xboxchkr.db
+    disk:
+      name: botdata
+      mountPath: /data
+      sizeGB: 1             # SQLite database — 1GB is plenty
